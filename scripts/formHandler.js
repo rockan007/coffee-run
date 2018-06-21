@@ -26,6 +26,19 @@
             this.elements[0].focus();
         })
     }
+    FormHandler.prototype.addInputHandler = function (fn) {
+        console.log('setting input handler for form');
+        this.$formElement.on('input', '[name="emailAddress"]', function (event) {
+            var emailAddress = event.target.value;
+            console.log(fn(emailAddress));
+            var msg = '';
+            if (!fn(emailAddress)) {
+                msg = emailAddress + ' is not an authorized email address!';
+            }
+            console.log(msg);
+            event.target.setCustomValidity(msg);
+        })
+    }
     App.FormHandler = FormHandler;
     window.App = App;
 })(window)
