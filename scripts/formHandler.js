@@ -21,9 +21,10 @@
                 data[item.name] = item.value;
                 console.log(item.name + ' is ' + item.value);
             });
-            fn(data);
-            this.reset();
-            this.elements[0].focus();
+            fn(data).then(function(){
+                this.reset();
+                this.elements[0].focus();
+            }.bind(this));
         })
     }
     FormHandler.prototype.addInputHandler = function (fn) {

@@ -20,9 +20,13 @@
 
     formHandler.addSubmitHandler(function (data) {
         console.log("提交时获取的data:" + JSON.stringify(data));
-        myTruck.createOrder.call(myTruck, data);
-        checklist.addRow.call(checklist, data);
+       return myTruck.createOrder.call(myTruck, data).then(function(){
+            checklist.addRow.call(checklist, data);
+        },function(){
+            alert('Server unreachable.Try again later.');
+        })
     });
     formHandler.addInputHandler(Validation.isCompanyEmail);
+    myTruck.printOrders(checklist,addRow.bind(checklist));
     console.log(Validation);
 })(window)
